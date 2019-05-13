@@ -17,14 +17,6 @@ public class TXTRepository implements Repository<Record> {
     private List<Record> recordList = new ArrayList<>();
 
     @Override
-    public void add(Record bean) throws DAOException {
-        isNull(bean, "add(Record bean)");
-        if (!contains(bean)) {
-            recordList.add(bean);
-        }
-    }
-
-    @Override
     public void add(List<Record> beans) throws DAOException {
         isNull(beans, "add(List<Record> beans)");
         for (Record record : beans) {
@@ -46,44 +38,23 @@ public class TXTRepository implements Repository<Record> {
     }
 
     @Override
-    public void remove() {
-
+    public void delete() {
+        LOGGER.info("start delete in DAO");
+        recordList = new ArrayList<>();
     }
 
     @Override
-    public void remove(Record bean) {
-        for (Record record : recordList) {
-            if (record.equals(bean)) {
-                recordList.remove(record);
-                return;
-            }
-        }
-    }
-
-    @Override
-    public void remove(Specification<Record>... specifications) {
-        List<Record> result = new ArrayList<>();
-
-        for (Record record : recordList) {
-            boolean matches = true;
-            for (Specification<Record> specification : specifications) {
-                if (!specification.match(record)) {
-                    matches = false;
-                    break;
-                }
-            }
-            if (matches) {
-                result.add(record);
-            }
-        }
-
-        for (Record record : result) {
+    public void delete(List<Record> beans) throws DAOException {
+        isNull(beans, "List<Record> beans");
+        for(Record record : beans){
             recordList.remove(record);
         }
     }
 
     @Override
-    public List<Record> find(Specification<Record>... specifications) {
+    public List<Record> find(Specification<Record>... specifications) throws DAOException {
+        LOGGER.info("start find in DAO");
+
         List<Record> result = new ArrayList<>();
 
         for (Record record : recordList) {
@@ -98,7 +69,10 @@ public class TXTRepository implements Repository<Record> {
                 result.add(record);
             }
         }
-
+        if (result.size() == 0) {
+            LOGGER.warn("zero size list in List<Record> find()");
+            throw new DAOException();
+        }
         return result;
     }
 
@@ -114,14 +88,9 @@ public class TXTRepository implements Repository<Record> {
         return result;
     }
 
-    @Override
-    public void save() {
-
-    }
-
     private boolean contains(Record searchedRecord) {
         for(Record record : recordList){
-            if(record.getUniqueID().equals(searchedRecord.getUniqueID())) {
+            if(record.equals(searchedRecord)) {
                 return true;
             }
         }

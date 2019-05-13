@@ -14,17 +14,15 @@ public class Find implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private static final char paramDelimiter = ' ';
-
     @Override
     public String execute(String request) {
         LOGGER.info("task: " + request);
 
         DiskService service = ServiceFabric.getService();
-        List<Record> recordList = null;
+        List<Record> recordList;
         String response = "empty";
 
-        request = request.substring(4).trim();
+        request = request.substring(4);
         try {
             recordList = service.find(request);
             response = recordList.toString();

@@ -24,7 +24,6 @@ public class Band implements Performer {
 
     @Override
     public String toString() {
-        return " Band " +
-                "\"" + title + '\"';
+        return " Band " + title;
     }
 }

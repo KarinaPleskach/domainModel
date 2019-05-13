@@ -18,7 +18,7 @@ public class ValidatorProvider {
 
     private final Map<RecordName, RecordLineValidator> repository = new HashMap();
 
-    ValidatorProvider() {
+    public ValidatorProvider() {
         repository.put(RecordName.MINUS, new MinusLineValidator());
         repository.put(RecordName.RINGTONE, new RingtoneLineValidator());
         repository.put(RecordName.SONG, new SongLineValidator());

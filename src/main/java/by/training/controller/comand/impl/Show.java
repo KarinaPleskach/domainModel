@@ -19,7 +19,7 @@ public class Show implements Command {
         LOGGER.info("task: " + request);
 
         DiskService service = ServiceFabric.getService();
-        List<Record> recordList = null;
+        List<Record> recordList;
         String response = "empty";
         try {
             recordList = service.show();

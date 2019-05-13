@@ -1,6 +1,7 @@
-package by.training.parser;
+package by.training.parser.impl;
 
 import by.training.exception.ParserException;
+import by.training.parser.ResourceParser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,7 +11,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileParser implements ResourceParser {
+public class FileParser implements ResourceParser<Path> {
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Override

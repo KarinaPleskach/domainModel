@@ -12,7 +12,7 @@ public class MinusLineValidator implements RecordLineValidator {
     @Override
     public ValidatorResult valid(String line) {
         ValidatorResult validatorResult;
-        if (!line.matches("Minus \\w+ \\d+ \\d+ (Band|SoloArtist) \"[A-Za-z_0-9]+\" (ROCK|BLUES|POP|RAP|CLASSICAL|COUNTRY|ELECTRONIC|FOLK|METAL|HIP_HOP|JAZZ)")) {
+        if (!line.matches("Minus \\w+ \\d+ \\d+ (Band|SoloArtist) [A-Za-z_0-9]+ (ROCK|BLUES|POP|RAP|CLASSICAL|COUNTRY|ELECTRONIC|FOLK|METAL|HIP_HOP|JAZZ)")) {
             LOGGER.warn("Invalid Minus line in valid(String line)");
             validatorResult = new ValidatorResult(false, "Invalid Minus Record");
         } else {

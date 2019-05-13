@@ -13,8 +13,15 @@ public class RequestValidatorFabric {
 
     private final Map<RequestName, RequestLineValidator> repository = new HashMap();
 
-    public RequestValidatorFabric() {
+    private RequestValidatorFabric() {
         repository.put(RequestName.FIND, new FindLineValidator());
+    }
+
+    public static RequestValidatorFabric getInstance() {
+        return FabricHolder.INSTANCE;
+    }
+    private static class FabricHolder {
+        private static final RequestValidatorFabric INSTANCE = new RequestValidatorFabric();
     }
 
     public RequestLineValidator getRequestValidator(String name) throws ValidatorException {

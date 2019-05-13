@@ -9,7 +9,6 @@ public abstract class Record {
 
     private String songName;
     private Duration duration;
-    private String uniqueID = UUID.randomUUID().toString();
 
     public Record(String songName, Duration duration) {
         this.songName = songName;
@@ -34,9 +33,6 @@ public abstract class Record {
 
     public abstract String toString();
 
-    public String getUniqueID() {
-        return uniqueID;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -44,12 +40,11 @@ public abstract class Record {
         if (o == null || getClass() != o.getClass()) return false;
         Record record = (Record) o;
         return Objects.equals(songName, record.songName) &&
-                Objects.equals(duration, record.duration) &&
-                Objects.equals(uniqueID, record.uniqueID);
+                Objects.equals(duration, record.duration);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(songName, duration, uniqueID);
+        return Objects.hash(songName, duration);
     }
 }

@@ -20,8 +20,7 @@ public class SoloArtist implements Performer {
 
     @Override
     public String toString() {
-        return " SoloArtist " +
-                "\"" + name + '\"';
+        return " SoloArtist " + name;
     }
 
     public String getPerformer() {

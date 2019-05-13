@@ -2,6 +2,7 @@ package by.training.validator.request;
 
 import by.training.exception.ValidatorException;
 import by.training.validator.request.impl.FindLineValidator;
+import by.training.validator.request.impl.SortLineValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,6 +15,7 @@ public class RequestValidatorFabric {
     private final Map<RequestName, RequestLineValidator> repository = new HashMap();
 
     private RequestValidatorFabric() {
+        repository.put(RequestName.SORT,new SortLineValidator());
         repository.put(RequestName.FIND, new FindLineValidator());
     }
 

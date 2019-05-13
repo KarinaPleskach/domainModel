@@ -23,6 +23,8 @@ public class TXTRepository implements Repository<Record> {
             isNull(record, "add(List<Record> beans)");
             if (!contains(record)) {
                 recordList.add(record);
+            } else {
+                LOGGER.warn("Record already exist");
             }
         }
     }
@@ -47,7 +49,11 @@ public class TXTRepository implements Repository<Record> {
     public void delete(List<Record> beans) throws DAOException {
         isNull(beans, "List<Record> beans");
         for(Record record : beans){
-            recordList.remove(record);
+            if (contains(record)) {
+                recordList.remove(record);
+            } else {
+                LOGGER.warn("No such Record on Disk");
+            }
         }
     }
 

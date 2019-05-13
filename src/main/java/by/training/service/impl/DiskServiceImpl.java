@@ -1,5 +1,6 @@
 package by.training.service.impl;
 
+import by.training.comporator.RecordComparator;
 import by.training.creator.Creator;
 import by.training.creator.CreatorFabric;
 import by.training.dao.Repository;
@@ -28,6 +29,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DiskServiceImpl implements DiskService<Record> {
@@ -220,5 +222,53 @@ public class DiskServiceImpl implements DiskService<Record> {
             seconds = seconds % 60;
         }
         return new Duration(minutes, seconds);
+    }
+
+    @Override
+    public void sort(String request) throws ServiceException {
+        LOGGER.info("start sort in Service");
+
+        Repository repository = RepositoryFabric.getRepository();
+        RequestParserFabric parserFabric = RequestParserFabric.getInstance();
+        ResourceParser parser;
+        try {
+            parser = parserFabric.getRequestParser("one");
+        } catch (ParserException e) {
+            LOGGER.warn("Illegal request in sort(String request)");
+            throw new ServiceException();
+        }
+        RequestValidatorFabric validatorFabric = RequestValidatorFabric.getInstance();
+        RequestLineValidator validator;
+        try {
+            validator = validatorFabric.getRequestValidator("sort");
+        } catch (ValidatorException e) {
+            LOGGER.warn("Illegal request in sort(String request)");
+            throw new ServiceException();
+        }
+
+        List<Record> recordList = show();
+        List<String> criteriars;
+
+        if (validator.valid(request)) {
+            try {
+                criteriars = parser.parse(request.trim());
+                RecordComparator[] options = new RecordComparator[criteriars.size() - 1];
+                for (int i = 0; i < options.length; ++i) {
+                    options[i] = RecordComparator.valueOf(criteriars.get(i + 1).toUpperCase());
+                }
+                if (criteriars.get(0).equals("descending")) {
+                    Collections.sort(recordList, RecordComparator.descending(RecordComparator.getComparator(options)));
+                } else {
+                    Collections.sort(recordList, RecordComparator.ascending(RecordComparator.getComparator(options)));
+                }
+                repository.update(recordList);
+            } catch (ParserException | DAOException e) {
+                LOGGER.warn("Illegal request in sort(String request)");
+                throw new ServiceException();
+            }
+        } else {
+            LOGGER.warn("Illegal request in sort(String request)");
+            throw new ServiceException();
+        }
     }
 }

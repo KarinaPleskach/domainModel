@@ -16,4 +16,5 @@ public interface DiskService<T> {
     List<T> get(Path path) throws ServiceException;
     List<T> get(List<String> lines) throws ServiceException;
     Duration sum(String request) throws ServiceException;
+    void sort(String request) throws ServiceException;
 }

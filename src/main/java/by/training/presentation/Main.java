@@ -12,11 +12,15 @@ public class Main {
         System.out.println("FIND: " + controller.executeTask("find duration 5.49"));
         System.out.println("FIND: " + controller.executeTask("find style RAP"));
         System.out.println("FIND: " + controller.executeTask("find record ringtone"));
-        System.out.println("FIND: " + controller.executeTask("find timbre BASS"));
-//        songName name performer band band Maroon5
-//        System.out.println("SORT: " + controller.executeTask("sort songName"));
+        System.out.println("FIND: " + controller.executeTask("find timbre BASS performer Band"));
+        System.out.println("FIND: " + controller.executeTask("find song_name Name"));
+        System.out.println("FIND: " + controller.executeTask("find band Animal"));
+        System.out.println("SORT: " + controller.executeTask("sort ascending song_name_sort"));
+        System.out.println("SHOW: " + controller.executeTask("show"));
+        System.out.println("SORT: " + controller.executeTask("sort ascending style_sort"));
+        System.out.println("SHOW: " + controller.executeTask("show"));
 //        System.out.println("SORT: " + controller.executeTask("sort performer duration"));
-//        System.out.println("DELETE: " + controller.executeTask("delete duration 0.0-1.0"));
+        System.out.println("DELETE: " + controller.executeTask("delete duration 0.0-5.50"));
         System.out.println("SHOW: " + controller.executeTask("show"));
         System.out.println("DELETE: " + controller.executeTask("delete record ringtone"));
         System.out.println("SHOW: " + controller.executeTask("show"));

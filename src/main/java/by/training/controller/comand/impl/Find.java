@@ -27,7 +27,7 @@ public class Find implements Command {
             recordList = service.find(request);
             response = recordList.toString();
         } catch (ServiceException e) {
-            LOGGER.warn("unuseful result from service");
+            LOGGER.warn("warn from service");
         }
         return response;
     }
